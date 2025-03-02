@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhirlpoolExpert - Servicio Técnico de Electrodomésticos</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 1s ease-out forwards; }
+        .gradient-text {
+            background: linear-gradient(to right, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .service-card, .brand-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover, .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .swiper {
+            width: 100%;
+            height: 50vh; /* Ajuste para móviles */
+        }
+        @media (min-width: 768px) {
+            .swiper {
+                height: 100vh; /* Altura completa en pantallas grandes */
+            }
+        }
+        .swiper-slide {
+            text-align: center;
+            background: #000;
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: white !important;
+        }
+        .swiper-pagination-bullet {
+            background: white !important;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        .stats-card {
+            border-radius: 1rem;
+            background: linear-gradient(145deg, #ffffff, #f3f4f6);
+            box-shadow: 5px 5px 15px #d1d5db, -5px -5px 15px #ffffff;
+        }
+        @media (max-width: 768px) {
+            .gradient-text {
+                font-size: 2rem; /* Ajuste del tamaño del texto en móviles */
+            }
+            .service-card, .brand-card {
+                margin-bottom: 1rem; /* Espacio entre tarjetas en móviles */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/whripool1-odFaz3ZVxyOTtCUCuRMBtAn88WgeJs.png" alt="WhirlpoolExpert Logo" class="h-12">
+                </a>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#" class="text-gray-800 hover:text-blue-600 transition duration-300">Inicio</a>
+                    <a href="quienes-somos.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Sobre Nosotros</a>
+                    <a href="servicios.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Servicios</a>
+                    <a href="marcasAsociadas.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Marcas</a>
+                    <a href="programa.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Agenda tu Cita</a>
+                </div>
+                <button class="md:hidden" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <!-- Menú móvil -->
+            <div id="mobileMenu" class="md:hidden hidden mt-4">
+                <a href="#" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Inicio</a>
+                <a href="quienes-somos.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Sobre Nosotros</a>
+                <a href="servicios.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Servicios</a>
+                <a href="marcasAsociadas.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Marcas</a>
+                <a href="programa.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Agenda tu Cita</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Slider -->
+        <section class="pt-16">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+                        <img src="img/electrodomesticos-04.jpg" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="relative z-20 h-full flex flex-col items-center justify-center text-white text-center px-4">
+                            <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-slide-up gradient-text">Expertos en Electrodomésticos</h1>
+                            <p class="text-lg md:text-2xl mb-8 animate-fade-in">Reparación y mantenimiento de alta calidad</p>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+                        <img src="img/reparacion de lavadoras.webp" alt="Mantenimiento de Lavadoras" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="relative z-20 h-full flex flex-col items-center justify-center text-white text-center px-4">
+                            <h2 class="text-4xl md:text-5xl font-bold mb-4">Mantenimiento de Lavadoras</h2>
+                            <p class="text-xl mb-8">Garantía en todas nuestras reparaciones</p>
+                            <a href="#contacto" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300">
+                                Solicita un servicio
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+                        <img src="img/reparacion de congelador.jpg" alt="Mantenimiento de Refrigeradores" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="relative z-20 h-full flex flex-col items-center justify-center text-white text-center px-4">
+                            <h2 class="text-4xl md:text-5xl font-bold mb-4">Mantenimiento de Refrigeradores</h2>
+                            <p class="text-xl mb-8">Optimizamos el rendimiento y eficiencia energética</p>
+                            <a href="#servicios" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300">
+                                Ver Servicios
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+                        <img src="img/reparacion de horno.webp" alt="Reparación de Hornos" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="relative z-20 h-full flex flex-col items-center justify-center text-white text-center px-4">
+                            <h2 class="text-4xl md:text-5xl font-bold mb-4">Reparación de Hornos y Estufas</h2>
+                            <p class="text-xl mb-8">Servicio profesional y garantizado</p>
+                            <a href="#contacto" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300">
+                                Contactar Ahora
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+                        <img src="img/reparacion de secadoras.jpg" alt="Servicio de Secadoras" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="relative z-20 h-full flex flex-col items-center justify-center text-white text-center px-4">
+                            <h2 class="text-4xl md:text-5xl font-bold mb-4">Servicio de Secadoras</h2>
+                            <p class="text-xl mb-8">Reparación y mantenimiento especializado</p>
+                            <a href="#marcas" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300">
+                                Conoce Más
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+
+        <!-- Sección de Servicios -->
+        <section id="servicios" class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Nuestros Servicios</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="service-card bg-white rounded-lg p-6 text-center">
+                        <img src="img/reparacion de lavadoras.webp" alt="Reparación de Lavadoras" class="w-full h-48 object-cover mb-4 rounded">
+                        <h3 class="text-xl font-semibold mb-2">Reparación de Lavadoras</h3>
+                        <p class="text-sm md:text-base">Solucionamos problemas de lavado, centrifugado y fugas en tu lavadora. Nuestros técnicos están capacitados para reparar todas las marcas y modelos.</p>
+                    </div>
+                    <div class="service-card bg-white rounded-lg p-6 text-center">
+                        <img src="img/reparacion de congelador.jpg" alt="Mantenimiento de Refrigeradores" class="w-full h-48 object-cover mb-4 rounded">
+                        <h3 class="text-xl font-semibold mb-2">Mantenimiento de Refrigeradores</h3>
+                        <p class="text-sm md:text-base">Optimizamos el rendimiento y eficiencia energética de tu refrigerador. Realizamos limpieza de condensadores, ajuste de temperatura y más.</p>
+                    </div>
+                    <div class="service-card bg-white rounded-lg p-6 text-center">
+                        <img src="img/reparacion de estufas.jpg" alt="Reparación de Hornos" class="w-full h-48 object-cover mb-4 rounded">
+                        <h3 class="text-xl font-semibold mb-2">Reparación de Hornos y Estufas</h3>
+                        <p class="text-sm md:text-base">Arreglamos problemas de calentamiento y controles en hornos eléctricos y de gas. Garantizamos un funcionamiento seguro y eficiente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de ¿Por qué elegirnos? -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">¿Por qué elegirnos?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <i class="fas fa-tools text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Experiencia</h3>
+                        <p class="text-sm md:text-base">Más de 10 años reparando electrodomésticos</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-clock text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Rapidez</h3>
+                        <p class="text-sm md:text-base">Servicio rápido y eficiente</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-certificate text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Garantía</h3>
+                        <p class="text-sm md:text-base">Garantía en todas nuestras reparaciones</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-dollar-sign text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Precios justos</h3>
+                        <p class="text-sm md:text-base">Tarifas competitivas y transparentes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Marcas -->
+        <section id="marcas" class="py-16 bg-gray-200">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Marcas que Reparamos</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="brand-card bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
+                        <img src="img/whirlpool.png" alt="Whirlpool" class="h-16 object-contain">
+                    </div>
+                    <div class="brand-card bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
+                        <img src="img/lg.png" alt="LG" class="h-16 object-contain">
+                    </div>
+                    <div class="brand-card bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
+                        <img src="img/samsung.png" alt="Samsung" class="h-16 object-contain">
+                    </div>
+                    <div class="brand-card bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
+                        <img src="img/mabe.png" alt="Mabe" class="h-16 object-contain">
+                    </div>
+                    <div class="brand-card bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
+                        <img src="img/electrolux.png" alt="Electrolux" class="h-16 object-contain">
+                    </div>
+                    <div class="brand-card bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
+                        <img src="img/electric.png" alt="Electric" class="h-16 object-contain">
+                    </div>
+                    <div class="brand-card bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
+                        <img src="img/haceb.png" alt="Haceb" class="h-16 object-contain">
+                    </div>
+                    <div class="brand-card bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
+                        <img src="img/challenger.png" alt="Challenger" class="h-16 object-contain">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Testimonios -->
+        <section id="testimonios" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                        <p class="mb-4 text-sm md:text-base">"Excelente servicio. Repararon mi lavadora Whirlpool en menos de 24 horas. Muy profesionales y eficientes."</p>
+                        <p class="font-semibold">- María Rodríguez</p>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                        <p class="mb-4 text-sm md:text-base">"Llevaba meses con problemas en mi refrigerador LG. WhirlpoolExpert lo diagnosticó correctamente y lo reparó en una sola visita. ¡Increíble!"</p>
+                        <p class="font-semibold">- Juan Pérez</p>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                        <p class="mb-4 text-sm md:text-base">"Su servicio de mantenimiento preventivo ha hecho que mis electrodomésticos duren mucho más. Altamente recomendados."</p>
+                        <p class="font-semibold">- Ana García</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Proceso de Servicio -->
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Proceso de Servicio</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-blue-600">1</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Contacto</h3>
+                        <p class="text-sm md:text-base">Llámanos o escríbenos para programar tu servicio</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-blue-600">2</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Diagnóstico</h3>
+                        <p class="text-sm md:text-base">Evaluamos el estado de tu electrodoméstico</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-blue-600">3</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Reparación</h3>
+                        <p class="text-sm md:text-base">Solucionamos el problema con repuestos originales</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-blue-600">4</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Garantía</h3>
+                        <p class="text-sm md:text-base">Te entregamos la garantía por escrito</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Estadísticas -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Estadísticas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="stats-card p-6 text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">15+</div>
+                        <div class="text-gray-600">Años de Experiencia</div>
+                    </div>
+                    <div class="stats-card p-6 text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">1000+</div>
+                        <div class="text-gray-600">Clientes Satisfechos</div>
+                    </div>
+                    <div class="stats-card p-6 text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
+                        <div class="text-gray-600">Servicio de Emergencia</div>
+                    </div>
+                    <div class="stats-card p-6 text-center">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">100%</div>
+                        <div class="text-gray-600">Garantía de Servicio</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Contacto -->
+        <section id="contacto" class="py-16 bg-gray-200">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Contáctanos</h2>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                    <a href="https://wa.me/3180914236" class="flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        WhatsApp: 3180914236
+                    </a>
+                    <a href="tel:3180914236" class="flex items-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300">
+                        <i class="fas fa-phone-alt mr-2"></i>
+                        Teléfono: 3180914236
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">WhirlpoolExpert</h3>
+                    <p class="text-sm md:text-base">Expertos en reparación y mantenimiento de electrodomésticos. Servicio rápido y confiable en toda la ciudad.</p>
+                </div>
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">Enlaces rápidos</h3>
+                    <ul>
+                        <li><a href="#" class="hover:text-blue-400 text-sm md:text-base">Inicio</a></li>
+                        <li><a href="#servicios" class="hover:text-blue-400 text-sm md:text-base">Servicios</a></li>
+                        <li><a href="#marcas" class="hover:text-blue-400 text-sm md:text-base">Marcas</a></li>
+                        <li><a href="#testimonios" class="hover:text-blue-400 text-sm md:text-base">Testimonios</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <h3 class="text-xl font-semibold mb-4">Síguenos</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/share/1AA835oZUK/" class="text-white hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/wirpoolexpert?igsh=MWl0dWZtOHF2cHJuYQ==" class="text-white hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-sm md:text-base">&copy; 2025 WhirlpoolExpert. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-fade-in, .animate-slide-up');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

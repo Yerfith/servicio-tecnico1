@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nosotros - WhirlpoolExpert</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 1s ease-out forwards; }
+        
+        .feature-card {
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/whripool1-odFaz3ZVxyOTtCUCuRMBtAn88WgeJs.png" alt="WhirlpoolExpert Logo" class="h-12">
+                </a>
+                <div class="hidden md:flex space-x-4">
+                    <a href="index.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Inicio</a>
+                    <a href="quienes-somos.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Sobre Nosotros</a>
+                    <a href="servicios.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Servicios</a>
+                    <a href="marcasAsociadas.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Marcas</a>
+                    <a href="programa.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Agenda tu Cita</a>
+                </div>
+                <button class="md:hidden" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <!-- Menú móvil -->
+            <div id="mobileMenu" class="md:hidden hidden mt-4">
+                <a href="index.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Inicio</a>
+                <a href="quienes-somos.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Sobre Nosotros</a>
+                <a href="servicios.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Servicios</a>
+                <a href="marcasAsociadas.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Marcas</a>
+                <a href="programa.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Agenda tu Cita</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative bg-blue-600 text-white py-20">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-slide-up">Nuestra Historia</h1>
+                    <p class="text-lg md:text-xl animate-fade-in">15 años de excelencia en servicio técnico de electrodomésticos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiénes Somos Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <h2 class="text-3xl font-bold text-gray-800">Quiénes Somos</h2>
+                        <p class="text-gray-600 leading-relaxed">
+                            En WhirlpoolExpert, somos un equipo dedicado de profesionales especializados en el servicio técnico de electrodomésticos de línea blanca. Con 15 años de experiencia en el sector, nuestra pasión es brindar soluciones eficientes y confiables para mantener su hogar funcionando sin problemas.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold text-blue-600">15+</div>
+                                <div class="text-gray-600">Años de Experiencia</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold text-blue-600">1000+</div>
+                                <div class="text-gray-600">Clientes Satisfechos</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <img src="img/equipo2.jpg" alt="Equipo de trabajo" class="rounded-lg shadow-lg w-full">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Misión y Visión -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="feature-card bg-white p-8 rounded-lg shadow-lg">
+                        <div class="text-blue-600 mb-4">
+                            <i class="fas fa-bullseye text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Nuestra Misión</h3>
+                        <p class="text-gray-600 mb-6">
+                            Proporcionar servicios de reparación y mantenimiento de electrodomésticos de la más alta calidad, centrados en la satisfacción del cliente y la excelencia técnica.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-600">
+                                <i class="fas fa-check text-blue-600 mr-2"></i>
+                                Servicio al cliente excepcional
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <i class="fas fa-check text-blue-600 mr-2"></i>
+                                Altos estándares de calidad
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <i class="fas fa-check text-blue-600 mr-2"></i>
+                                Soluciones rápidas y eficientes
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="feature-card bg-white p-8 rounded-lg shadow-lg">
+                        <div class="text-blue-600 mb-4">
+                            <i class="fas fa-eye text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Nuestra Visión</h3>
+                        <p class="text-gray-600 mb-6">
+                            Aspiramos a consolidarnos para el año 2028 como el líder indiscutible en servicios de reparación y mantenimiento de electrodomésticos, estableciendo nuevos estándares de excelencia.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-600">
+                                <i class="fas fa-check text-blue-600 mr-2"></i>
+                                Expansión nacional
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <i class="fas fa-check text-blue-600 mr-2"></i>
+                                Innovación constante
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <i class="fas fa-check text-blue-600 mr-2"></i>
+                                Prácticas sostenibles
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Valores -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Nuestros Valores</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="feature-card text-center p-6">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-heart text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Compromiso</h3>
+                        <p class="text-gray-600">Dedicación total a la satisfacción del cliente</p>
+                    </div>
+                    <div class="feature-card text-center p-6">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-star text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Excelencia</h3>
+                        <p class="text-gray-600">Búsqueda constante de la perfección</p>
+                    </div>
+                    <div class="feature-card text-center p-6">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-handshake text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Confianza</h3>
+                        <p class="text-gray-600">Relaciones duraderas con nuestros clientes</p>
+                    </div>
+                    <div class="feature-card text-center p-6">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-sync text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Innovación</h3>
+                        <p class="text-gray-600">Mejora continua en nuestros servicios</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">WhirlpoolExpert</h3>
+                    <p class="text-sm md:text-base">Expertos en reparación y mantenimiento de electrodomésticos. Servicio rápido y confiable en toda la ciudad.</p>
+                </div>
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">Enlaces rápidos</h3>
+                    <ul>
+                        <li><a href="index.html" class="hover:text-blue-400 text-sm md:text-base">Inicio</a></li>
+                        <li><a href="quienes-somos.html" class="hover:text-blue-400 text-sm md:text-base">Sobre Nosotros</a></li>
+                        <li><a href="servicios.html" class="hover:text-blue-400 text-sm md:text-base">Servicios</a></li>
+                        <li><a href="marcasAsociadas.html" class="hover:text-blue-400 text-sm md:text-base">Marcas</a></li>
+                        <li><a href="programa.html" class="hover:text-blue-400 text-sm md:text-base">Agenda tu Cita</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <h3 class="text-xl font-semibold mb-4">Síguenos</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/share/1AA835oZUK/" class="text-white hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/wirpoolexpert?igsh=MWl0dWZtOHF2cHJuYQ==" class="text-white hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-sm md:text-base">&copy; 2025 WhirlpoolExpert. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Función para mostrar/ocultar el menú móvil
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Animación al hacer scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-fade-in, .animate-slide-up');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>

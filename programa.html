@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa tu Servicio - WhirlpoolExpert</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos personalizados */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 1s ease-out forwards; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(45deg, #ffffff 0%, #f3f4f6 15%, #c7eefe 30%, #f3f4f6 80%, #ffffff 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .schedule-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .step-content {
+            position: relative;
+            padding: 2rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .step-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            border-radius: 1rem;
+            z-index: -1;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e5e7eb;
+            z-index: 1;
+        }
+
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .step.active {
+            border-color: #2563eb;
+            background: #2563eb;
+            color: white;
+        }
+
+        .step.completed {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            outline: none;
+        }
+
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            border-radius: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+        }
+
+        .service-card.selected {
+            border-color: #2563eb;
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .appliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .appliance-card {
+            position: relative;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .appliance-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+        }
+
+        .appliance-card.selected {
+            border-color: #2563eb;
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .image-upload-container {
+            border: 2px dashed #e5e7eb;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload-container:hover {
+            border-color: #2563eb;
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 1rem auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-slot {
+            position: relative;
+            overflow: hidden;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid #e5e7eb;
+        }
+
+        .time-slot:hover {
+            border-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .time-slot.selected {
+            border-color: #2563eb;
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .button-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .button-secondary {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .button-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .success-animation {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            background: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            z-index: 999;
+            padding: 1rem;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+            display: block;
+        }
+
+        .brand-logo {
+            max-width: 100%;
+            max-height: 100px;
+            object-fit: contain;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover:not(.disabled) {
+            background-color: #e5e7eb;
+        }
+
+        .calendar-day.selected {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .calendar-day.disabled {
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-nav {
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .calendar-nav:hover {
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/whripool1-odFaz3ZVxyOTtCUCuRMBtAn88WgeJs.png" alt="WhirlpoolExpert Logo" class="h-12">
+                </a>
+                <div class="hidden md:flex space-x-4">
+                    <a href="index.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Inicio</a>
+                    <a href="quienes-somos.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Sobre Nosotros</a>
+                    <a href="servicios.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Servicios</a>
+                    <a href="marcasAsociadas.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Marcas</a>
+                    <a href="programa.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Agenda tu Cita</a>
+                </div>
+                <button class="md:hidden menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="flex justify-end mb-4">
+            <button class="menu-close">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-4">
+            <a href="index.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Inicio</a>
+            <a href="quienes-somos.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Sobre Nosotros</a>
+            <a href="servicios.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Servicios</a>
+            <a href="marcasAsociadas.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Marcas</a>
+            <a href="programa.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Agenda tu Cita</a>
+        </div>
+    </div>
+
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative bg-blue-600 text-white py-20">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-slide-up">Agenda tu Servicio</h1>
+                    <p class="text-xl mb-8 animate-fade-in">Programa una cita con nuestros expertos en pocos pasos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scheduling Form Section -->
+        <section class="py-16">
+            <div class="schedule-container">
+                <div class="step-indicator mb-8">
+                    <div class="step active" data-step="1">1</div>
+                    <div class="step" data-step="2">2</div>
+                    <div class="step" data-step="3">3</div>
+                    <div class="step" data-step="4">4</div>
+                </div>
+
+                <form id="scheduleForm" class="space-y-6">
+                    <!-- Step 1: Service Selection -->
+                    <div class="form-step active" id="step1">
+                        <div class="step-content">
+                            <div class="step-background" style="background-image: url('img/service-bg.jpg')"></div>
+                            <h2 class="text-2xl font-bold mb-6">Selecciona el Servicio</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="service-card" onclick="selectService(this, 'reparacion')">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-tools text-blue-600 text-2xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-xl font-semibold">Reparación</h3>
+                                            <p class="text-gray-600">Solución a problemas específicos</p>
+                                            <ul class="mt-4 text-sm text-gray-600">
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Diagnóstico preciso</li>
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Repuestos originales</li>
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Garantía del servicio</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="service-card" onclick="selectService(this, 'mantenimiento')">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-check-circle text-green-600 text-2xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-xl font-semibold">Mantenimiento</h3>
+                                            <p class="text-gray-600">Servicio preventivo regular</p>
+                                            <ul class="mt-4 text-sm text-gray-600">
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Limpieza profunda</li>
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Ajustes y calibración</li>
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Prevención de fallas</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="service-card" onclick="selectService(this, 'instalacion')">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-plug text-purple-600 text-2xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-xl font-semibold">Instalación</h3>
+                                            <p class="text-gray-600">Montaje de nuevos equipos</p>
+                                            <ul class="mt-4 text-sm text-gray-600">
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Instalación profesional</li>
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Configuración inicial</li>
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Pruebas de funcionamiento</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="service-card" onclick="selectService(this, 'diagnostico')">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-search text-yellow-600 text-2xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-xl font-semibold">Diagnóstico</h3>
+                                            <p class="text-gray-600">Evaluación del problema</p>
+                                            <ul class="mt-4 text-sm text-gray-600">
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Inspección detallada</li>
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Detección de fallas</li>
+                                                <li><i class="fas fa-check text-green-500 mr-2"></i>Presupuesto sin compromiso</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex justify-end">
+                            <button type="button" class="button button-primary" onclick="nextStep()">
+                                Siguiente <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Appliance Information -->
+                    <div class="form-step" id="step2">
+                        <div class="step-content">
+                            <div class="step-background" style="background-image: url('img/appliance-bg.jpg')"></div>
+                            <h2 class="text-2xl font-bold mb-6">Información del Electrodoméstico</h2>
+                            
+                            <div class="space-y-6">
+                                <div class="form-group">
+                                    <label class="form-label">Tipo de Electrodoméstico</label>
+                                    <div class="appliance-grid">
+                                        <div class="appliance-card" onclick="selectAppliance(this, 'lavadora')">
+                                            <img src="img/lavadorageneralelectric.webp" alt="Lavadora" class="w-16 h-16 mx-auto mb-4">
+                                            <h3 class="font-semibold">Lavadora</h3>
+                                        </div>
+                                        <div class="appliance-card" onclick="selectAppliance(this, 'refrigerador')">
+                                            <img src="img/refrijeradorwhirlpool.png" alt="Refrigerador" class="w-16 h-16 mx-auto mb-4">
+                                            <h3 class="font-semibold">Refrigerador</h3>
+                                        </div>
+                                        <div class="appliance-card" onclick="selectAppliance(this, 'secadora')">
+                                            <img src="img/neverahaceb.webp" alt="Secadora" class="w-16 h-16 mx-auto mb-4">
+                                            <h3 class="font-semibold">Nevera</h3>
+                                        </div>
+                                        <div class="appliance-card" onclick="selectAppliance(this, 'lavavajillas')">
+                                            <img src="img/lavavajillachallenger.webp" alt="Lavavajillas" class="w-16 h-16 mx-auto mb-4">
+                                            <h3 class="font-semibold">Lavavajillas</h3>
+                                        </div>
+                                        <div class="appliance-card" onclick="selectAppliance(this, 'estufa')">
+                                            <img src="img/estufasamsung.avif" alt="Estufa" class="w-16 h-16 mx-auto mb-4">
+                                            <h3 class="font-semibold">Estufa</h3>
+                                        </div>
+                                        <div class="appliance-card" onclick="selectAppliance(this, 'horno')">
+                                            <img src="img/hornochallenger.webp" alt="Horno" class="w-16 h-16 mx-auto mb-4">
+                                            <h3 class="font-semibold">Horno</h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Marca del Electrodoméstico</label>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                        <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="selectBrand(this, 'whirlpool')">
+                                            <img src="img/whirlpool.png" alt="Whirlpool" class="h-12 mx-auto">
+                                        </div>
+                                        <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="selectBrand(this, 'samsung')">
+                                            <img src="img/samsung.png" alt="Samsung" class="h-12 mx-auto">
+                                        </div>
+                                        <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="selectBrand(this, 'lg')">
+                                            <img src="img/lg.png" alt="LG" class="h-12 mx-auto">
+                                        </div>
+                                        <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="selectBrand(this, 'mabe')">
+                                            <img src="img/mabe.png" alt="Mabe" class="h-12 mx-auto">
+                                        </div>
+                                        <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="selectBrand(this, 'electrolux')">
+                                            <img src="img/electrolux.png" alt="Electrolux" class="h-12 mx-auto">
+                                        </div>
+                                        <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="selectBrand(this, 'ge')">
+                                            <img src="img/electric.png" alt="General Electric" class="h-12 mx-auto">
+                                        </div>
+                                        <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="selectBrand(this, 'centrales')">
+                                            <img src="img/centrales.png" alt="Centrales" class="h-12 mx-auto">
+                                        </div>
+                                        <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="selectBrand(this, 'challenger')">
+                                            <img src="img/challenger.png" alt="Challenger" class="h-12 mx-auto">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Fotos del Electrodoméstico</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="image-upload-container" onclick="document.getElementById('frontImage').click()">
+                                            <input type="file" id="frontImage" class="hidden" accept="image/*" onchange="previewImage(this, 'frontPreview')">
+                                            <div id="frontPreviewContainer" class="hidden">
+                                                <img id="frontPreview" class="image-preview">
+                                                <button type="button" class="mt-2 text-red-600" onclick="removeImage('frontImage', 'frontPreview')">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </button>
+                                            </div>
+                                            <div id="frontUploadPrompt">
+                                                <i class="fas fa-camera text-4xl text-gray-400"></i>
+                                                <p class="mt-2 text-gray-600">Foto frontal del electrodoméstico</p>
+                                                <p class="text-sm text-gray-500">Click para subir</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="image-upload-container" onclick="document.getElementById('detailImage').click()">
+                                            <input type="file" id="detailImage" class="hidden" accept="image/*" onchange="previewImage(this, 'detailPreview')">
+                                            <div id="detailPreviewContainer" class="hidden">
+                                                <img id="detailPreview" class="image-preview">
+                                                <button type="button" class="mt-2 text-red-600" onclick="removeImage('detailImage', 'detailPreview')">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </button>
+                                            </div>
+                                            <div id="detailUploadPrompt">
+                                                <i class="fas fa-camera text-4xl text-gray-400"></i>
+                                                <p class="mt-2 text-gray-600">Foto del detalle o falla</p>
+                                                <p class="text-sm text-gray-500">Click para subir</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Descripción del Problema</label>
+                                    <textarea class="form-textarea" rows="4" placeholder="Describe detalladamente el problema que presenta tu electrodoméstico..." required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex justify-between">
+                            <button type="button" class="button button-secondary" onclick="prevStep()">
+                                <i class="fas fa-arrow-left mr-2"></i> Anterior
+                            </button>
+                            <button type="button" class="button button-primary" onclick="nextStep()">
+                                Siguiente <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Date and Time Selection -->
+                    <div class="form-step" id="step3">
+                        <div class="step-content">
+                            <div class="step-background" style="background-image: url('img/calendar-bg.jpg')"></div>
+                            <h2 class="text-2xl font-bold mb-6">Selecciona Fecha y Hora</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha Preferida</label>
+                                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                                            <div class="calendar-header">
+                                                <button type="button" class="calendar-nav" onclick="changeMonth(-1)">
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </button>
+                                                <h3 id="currentMonth" class="text-lg font-semibold"></h3>
+                                                <button type="button" class="calendar-nav" onclick="changeMonth(1)">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </button>
+                                            </div>
+                                            <div class="grid grid-cols-7 gap-2 text-center font-medium mb-4">
+                                                <div>D</div>
+                                                <div>L</div>
+                                                <div>M</div>
+                                                <div>M</div>
+                                                <div>J</div>
+                                                <div>V</div>
+                                                <div>S</div>
+                                            </div>
+                                            <div class="calendar-grid" id="calendarGrid">
+                                                <!-- Calendar will be generated by JavaScript -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Horarios Disponibles</label>
+                                        <div class="space-y-4">
+                                            <div class="time-slot morning p-4 rounded-lg" onclick="selectTimeSlot(this)">
+                                                <div class="flex items-center space-x-4">
+                                                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                                                        <i class="fas fa-sun text-yellow-600"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h3 class="font-semibold">Mañana</h3>
+                                                        <p class="text-sm text-gray-600">8:00 AM - 12:00 PM</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="time-slot afternoon p-4 rounded-lg" onclick="selectTimeSlot(this)">
+                                                <div class="flex items-center space-x-4">
+                                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                                        <i class="fas fa-cloud-sun text-blue-600"></i>
+                                                    </div>
+                                                    <div>
+                                                                                       <h3 class="font-semibold">Tarde</h3>
+                                                        <p class="text-sm text-gray-600">12:00 PM - 4:00 PM</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="time-slot evening p-4 rounded-lg" onclick="selectTimeSlot(this)">
+                                                <div class="flex items-center space-x-4">
+                                                    <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                                                        <i class="fas fa-moon text-indigo-600"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h3 class="font-semibold">Noche</h3>
+                                                        <p class="text-sm text-gray-600">4:00 PM - 8:00 PM</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex justify-between">
+                            <button type="button" class="button button-secondary" onclick="prevStep()">
+                                <i class="fas fa-arrow-left mr-2"></i> Anterior
+                            </button>
+                            <button type="button" class="button button-primary" onclick="nextStep()">
+                                Siguiente <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Contact Information -->
+                    <div class="form-step" id="step4">
+                        <div class="step-content">
+                            <div class="step-background" style="background-image: url('img/contact-bg.jpg')"></div>
+                            <h2 class="text-2xl font-bold mb-6">Información de Contacto</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="form-group">
+                                    <label class="form-label">Nombre Completo</label>
+                                    <input type="text" name="nombre" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Teléfono</label>
+                                    <input type="tel" name="telefono" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Correo Electrónico</label>
+                                    <input type="email" name="email" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Dirección</label>
+                                    <input type="text" name="direccion" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Ciudad</label>
+                                    <input type="text" name="ciudad" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Referencias de la ubicación</label>
+                                    <textarea name="referencias" class="form-textarea" rows="2" placeholder="Puntos de referencia para ubicar la dirección"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex justify-between">
+                            <button type="button" class="button button-secondary" onclick="prevStep()">
+                                <i class="fas fa-arrow-left mr-2"></i> Anterior
+                            </button>
+                            <button type="button" class="button button-primary" onclick="submitForm()">
+                                Confirmar Cita <i class="fas fa-check ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Success Message -->
+                    <div class="form-step" id="success">
+                        <div class="text-center">
+                            <div class="success-animation">
+                                <i class="fas fa-check text-white text-4xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-green-600 mb-4">¡Cita Programada con Éxito!</h2>
+                            <p class="text-gray-600 mb-6">
+                                Hemos recibido tu solicitud. Te enviaremos un correo electrónico con la confirmación y los detalles de tu cita.
+                            </p>
+                            <div class="space-y-4">
+                                <p class="font-semibold">Resumen de la cita:</p>
+                                <div id="appointmentSummary" class="text-left bg-gray-50 p-4 rounded-lg">
+                                    <!-- Will be filled by JavaScript -->
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <a href="index.html" class="button button-primary">
+                                    <i class="fas fa-home mr-2"></i> Volver al Inicio
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">WhirlpoolExpert</h3>
+                    <p>Expertos en reparación y mantenimiento de electrodomésticos. Servicio rápido y confiable en toda la ciudad.</p>
+                </div>
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">Enlaces rápidos</h3>
+                    <ul>
+                        <li><a href="index.html" class="hover:text-blue-400">Inicio</a></li>
+                        <li><a href="servicios.html" class="hover:text-blue-400">Servicios</a></li>
+                        <li><a href="marcasAsociadas.html" class="hover:text-blue-400">Marcas</a></li>
+                        <li><a href="programa.html" class="hover:text-blue-400">Agenda tu Cita</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <h3 class="text-xl font-semibold mb-4">Síguenos</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/share/1AA835oZUK/" class="text-white hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/wirpoolexpert?igsh=MWl0dWZtOHF2cHJuYQ==" class="text-white hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 WhirlpoolExpert. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+        let formData = {
+            service: '',
+            appliance: {
+                type: '',
+                brand: '',
+                images: {
+                    front: null,
+                    detail: null
+                }
+            },
+            datetime: {
+                date: '',
+                timeSlot: ''
+            },
+            contact: {}
+        };
+
+        function selectService(element, service) {
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            formData.service = service;
+        }
+
+        function selectAppliance(element, type) {
+            document.querySelectorAll('.appliance-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            formData.appliance.type = type;
+        }
+
+        function selectBrand(element, brand) {
+            document.querySelectorAll('[onclick^="selectBrand"]').forEach(el => {
+                el.classList.remove('border-blue-500', 'bg-blue-50');
+            });
+            element.classList.add('border-blue-500', 'bg-blue-50');
+            formData.appliance.brand = brand;
+        }
+
+        function selectTimeSlot(element) {
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            formData.datetime.timeSlot = element.querySelector('h3').textContent + ' ' + 
+                                       element.querySelector('p').textContent;
+        }
+
+        function previewImage(input, previewId) {
+            const file = input.files[0];
+            const preview = document.getElementById(previewId);
+            const previewContainer = document.getElementById(previewId + 'Container');
+            const uploadPrompt = document.getElementById(input.id + 'UploadPrompt');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                    uploadPrompt.classList.add('hidden');
+                    formData.appliance.images[input.id === 'frontImage' ? 'front' : 'detail'] = file;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage(inputId, previewId) {
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+            const previewContainer = document.getElementById(previewId + 'Container');
+            const uploadPrompt = document.getElementById(inputId + 'UploadPrompt');
+
+            input.value = '';
+            preview.src = '';
+            previewContainer.classList.add('hidden');
+            uploadPrompt.classList.remove('hidden');
+            formData.appliance.images[inputId === 'frontImage' ? 'front' : 'detail'] = null;
+        }
+
+        let currentDate = new Date();
+
+        function generateCalendar() {
+            const calendar = document.getElementById('calendarGrid');
+            calendar.innerHTML = '';
+
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+            // Actualizar la visualización del mes y año.
+            document.getElementById('currentMonth').textContent = `${currentDate.toLocaleString('default', { month: 'long' })} ${currentDate.getFullYear()}`;
+
+            // Complete los días vacíos del mes anterior
+            for (let i = 0; i < firstDay.getDay(); i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day disabled';
+                calendar.appendChild(emptyDay);
+            }
+
+            // Complete los días del mes actual
+            for (let i = 1; i <= lastDay.getDate(); i++) {
+                const day = document.createElement('div');
+                day.className = 'calendar-day';
+                day.textContent = i;
+                
+                const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                if (date < new Date()) {
+                    day.classList.add('disabled');
+                } else {
+                    day.onclick = () => selectDate(day, date);
+                }
+                
+                calendar.appendChild(day);
+            }
+        }
+
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            generateCalendar();
+        }
+
+        function selectDate(element, date) {
+            document.querySelectorAll('.calendar-day').forEach(day => {
+                day.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            formData.datetime.date = date.toLocaleDateString();
+        }
+
+        function updateStepIndicator() {
+            document.querySelectorAll('.step').forEach((step, index) => {
+                const stepNum = index + 1;
+                if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                } else if (stepNum === currentStep) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+            });
+        }
+
+        function validateCurrentStep() {
+            let isValid = true;
+
+            switch (currentStep) {
+                case 1:
+                    isValid = formData.service !== '';
+                    break;
+                case 2:
+                    isValid = formData.appliance.type !== '' && formData.appliance.brand !== '';
+                    break;
+                case 3:
+                    isValid = formData.datetime.date !== '' && formData.datetime.timeSlot !== '';
+                    break;
+                case 4:
+                    const requiredFields = ['nombre', 'telefono', 'email', 'direccion', 'ciudad'];
+                    isValid = requiredFields.every(field => document.querySelector(`[name="${field}"]`).value !== '');
+                    break;
+            }
+
+            return isValid;
+        }
+
+        function nextStep() {
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    document.getElementById(`step${currentStep}`).classList.remove('active');
+                    currentStep++;
+                    document.getElementById(`step${currentStep}`).classList.add('active');
+                    updateStepIndicator();
+                }
+            } else {
+                alert('Por favor, complete todos los campos requeridos antes de continuar.');
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateStepIndicator();
+            }
+        }
+
+        function submitForm() {
+    if (validateCurrentStep()) {
+        // Recopilar información de contacto
+        const contactFields = ['nombre', 'telefono', 'email', 'direccion', 'ciudad', 'referencias'];
+        contactFields.forEach(field => {
+            formData.contact[field] = document.querySelector(`[name="${field}"]`).value;
+        });
+
+        // Preparar los datos para enviar al servidor
+        const formDataToSend = new FormData();
+        
+        // Añadir los datos del formulario
+        formDataToSend.append('formData', JSON.stringify(formData));
+        
+        // Obtener las imágenes del preview
+        const frontPreview = document.getElementById('frontPreview');
+        const detailPreview = document.getElementById('detailPreview');
+        
+        // Función para convertir una imagen a Blob
+        const convertImageToBlob = async (imgElement) => {
+            if (imgElement && imgElement.src && !imgElement.src.includes('placeholder')) {
+                try {
+                    const response = await fetch(imgElement.src);
+                    const blob = await response.blob();
+                    return blob;
+                } catch (error) {
+                    console.error('Error convirtiendo imagen a blob:', error);
+                    return null;
+                }
+            }
+            return null;
+        };
+
+        // Enviar el formulario con las imágenes
+        (async () => {
+            try {
+                // Convertir imágenes a blobs
+                const frontBlob = await convertImageToBlob(frontPreview);
+                const detailBlob = await convertImageToBlob(detailPreview);
+
+                // Añadir las imágenes si existen
+                if (frontBlob) {
+                    formDataToSend.append('frontImage', frontBlob, 'frontImage.jpg');
+                }
+                if (detailBlob) {
+                    formDataToSend.append('detailImage', detailBlob, 'detailImage.jpg');
+                }
+
+                // Enviar los datos al servidor
+                const response = await fetch('process-form.php', {
+                    method: 'POST',
+                    body: formDataToSend
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Mostrar mensaje de éxito
+                    document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+                    document.getElementById('success').classList.add('active');
+
+                    // Actualizar resumen de cita
+                    const summary = document.getElementById('appointmentSummary');
+                    summary.innerHTML = `
+                        <p><strong>Servicio:</strong> ${formData.service}</p>
+                        <p><strong>Electrodoméstico:</strong> ${formData.appliance.type}</p>
+                        <p><strong>Marca:</strong> ${formData.appliance.brand}</p>
+                        <p><strong>Fecha:</strong> ${formData.datetime.date}</p>
+                        <p><strong>Horario:</strong> ${formData.datetime.timeSlot}</p>
+                        <p><strong>Nombre:</strong> ${formData.contact.nombre}</p>
+                        <p><strong>Teléfono:</strong> ${formData.contact.telefono}</p>
+                        <p><strong>Email:</strong> ${formData.contact.email}</p>
+                        <p><strong>Dirección:</strong> ${formData.contact.direccion}, ${formData.contact.ciudad}</p>
+                    `;
+                } else {
+                    alert('Error al programar la cita: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Hubo un problema al enviar el formulario. Por favor, inténtalo de nuevo.');
+            }
+        })();
+    } else {
+        alert('Por favor, complete todos los campos requeridos antes de confirmar la cita.');
+    }
+}
+
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.add('active');
+        });
+
+        document.querySelector('.menu-close').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.remove('active');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCalendar();
+            updateStepIndicator();
+        });
+    </script>
+</body>
+</html>
+

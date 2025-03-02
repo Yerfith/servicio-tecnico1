@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcas Asociadas - WhirlpoolExpert</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 1s ease-out forwards; }
+
+        .brand-card {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .appliance-item {
+            transition: all 0.3s ease;
+        }
+
+        .appliance-image-container {
+            height: 300px;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            background-color: #ffffff;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .appliance-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            padding: 1rem;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            z-index: 999;
+            padding: 1rem;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+            display: block;
+        }
+
+        .brand-logo {
+            max-width: 100%;
+            max-height: 100px;
+            object-fit: contain;
+        }
+
+        .appliance-image-container:hover .appliance-image {
+            transform: scale(1.2);
+        }
+
+        .appliance-image {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/whripool1-odFaz3ZVxyOTtCUCuRMBtAn88WgeJs.png" alt="WhirlpoolExpert Logo" class="h-12">
+                </a>
+                <div class="hidden md:flex space-x-4">
+                    <a href="index.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Inicio</a>
+                    <a href="quienes-somos.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Sobre Nosotros</a>
+                    <a href="servicios.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Servicios</a>
+                    <a href="marcasAsociadas.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Marcas</a>
+                    <a href="programa.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Agenda tu Cita</a>
+                </div>
+                <button class="md:hidden menu-toggle" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Menú móvil -->
+    <div class="mobile-menu">
+        <div class="flex justify-end mb-4">
+            <button class="menu-close" onclick="toggleMenu()">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-4">
+            <a href="index.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Inicio</a>
+            <a href="quienes-somos.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Sobre Nosotros</a>
+            <a href="servicios.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Servicios</a>
+            <a href="marcasAsociadas.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Marcas</a>
+            <a href="programa.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Agenda tu Cita</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative bg-blue-600 text-white py-20">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-slide-up">Marcas Asociadas</h1>
+                    <p class="text-lg md:text-xl mb-8 animate-fade-in">Trabajamos con las mejores marcas del mercado para garantizar la calidad de nuestros servicios</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marcas Section -->
+        <section class="py-16 gradient-bg">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="brand-card p-6 rounded-xl shadow-lg" data-brand="whirlpool">
+                        <img src="img/whirlpool.png" alt="Whirlpool" class="brand-logo mx-auto mb-4">
+                        <h2 class="text-xl font-bold text-center mb-4">Whirlpool</h2>
+                        <p class="text-gray-600 text-center mb-4">Especialistas certificados en toda la línea de electrodomésticos Whirlpool</p>
+                        <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Ver Electrodomésticos
+                        </button>
+                    </div>
+
+                    <div class="brand-card p-6 rounded-xl shadow-lg" data-brand="samsung">
+                        <img src="img/samsung.png" alt="Samsung" class="brand-logo mx-auto mb-4">
+                        <h2 class="text-xl font-bold text-center mb-4">Samsung</h2>
+                        <p class="text-gray-600 text-center mb-4">Servicio técnico autorizado para productos Samsung</p>
+                        <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Ver Electrodomésticos
+                        </button>
+                    </div>
+
+                    <div class="brand-card p-6 rounded-xl shadow-lg" data-brand="lg">
+                        <img src="img/lg.png" alt="LG" class="brand-logo mx-auto mb-4">
+                        <h2 class="text-xl font-bold text-center mb-4">LG</h2>
+                        <p class="text-gray-600 text-center mb-4">Expertos en reparación y mantenimiento de electrodomésticos LG</p>
+                        <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Ver Electrodomésticos
+                        </button>
+                    </div>
+
+                    <div class="brand-card p-6 rounded-xl shadow-lg" data-brand="mabe">
+                        <img src="img/mabe.png" alt="Mabe" class="brand-logo mx-auto mb-4">
+                        <h2 class="text-xl font-bold text-center mb-4">Mabe</h2>
+                        <p class="text-gray-600 text-center mb-4">Servicio especializado en toda la línea Mabe</p>
+                        <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Ver Electrodomésticos
+                        </button>
+                    </div>
+
+                    <div class="brand-card p-6 rounded-xl shadow-lg" data-brand="electrolux">
+                        <img src="img/electrolux.png" alt="Electrolux" class="brand-logo mx-auto mb-4">
+                        <h2 class="text-xl font-bold text-center mb-4">Electrolux</h2>
+                        <p class="text-gray-600 text-center mb-4">Reparación profesional de electrodomésticos Electrolux</p>
+                        <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Ver Electrodomésticos
+                        </button>
+                    </div>
+
+                    <div class="brand-card p-6 rounded-xl shadow-lg" data-brand="general_electric">
+                        <img src="img/electric.png" alt="General Electric" class="brand-logo mx-auto mb-4">
+                        <h2 class="text-xl font-bold text-center mb-4">General Electric</h2>
+                        <p class="text-gray-600 text-center mb-4">Servicio técnico especializado GE</p>
+                        <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Ver Electrodomésticos
+                        </button>
+                    </div>
+
+                    <div class="brand-card p-6 rounded-xl shadow-lg" data-brand="centrales">
+                        <img src="img/centrales.png" alt="Centrales" class="brand-logo mx-auto mb-4">
+                        <h2 class="text-xl font-bold text-center mb-4">Centrales</h2>
+                        <p class="text-gray-600 text-center mb-4">Mantenimiento y reparación de línea Centrales</p>
+                        <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Ver Electrodomésticos
+                        </button>
+                    </div>
+
+                    <div class="brand-card p-6 rounded-xl shadow-lg" data-brand="challenger">
+                        <img src="img/challenger.png" alt="Challenger" class="brand-logo mx-auto mb-4">
+                        <h2 class="text-xl font-bold text-center mb-4">Challenger</h2>
+                        <p class="text-gray-600 text-center mb-4">Servicio técnico autorizado Challenger</p>
+                        <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Ver Electrodomésticos
+                        </button>
+                    </div>
+
+                    <div class="brand-card p-6 rounded-xl shadow-lg" data-brand="haceb">
+                        <img src="img/haceb.png" alt="Haceb" class="brand-logo mx-auto mb-4">
+                        <h2 class="text-xl font-bold text-center mb-4">Haceb</h2>
+                        <p class="text-gray-600 text-center mb-4">Expertos en reparación de electrodomésticos Haceb</p>
+                        <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Ver Electrodomésticos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="relative bg-blue-600 text-white py-20">
+            <div class="container mx-auto px-4 text-center text-white">
+                <h2 class="text-3xl font-bold mb-4">¿Necesita un servicio?</h2>
+                <p class="text-lg md:text-xl mb-8">Contáctenos hoy mismo para una atención rápida y profesional</p>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <a href="https://wa.me/3180914236" class="inline-flex items-center bg-green-500 text-white font-bold py-2 px-6 md:py-3 md:px-8 rounded-full hover:bg-green-600 transition duration-300">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        WhatsApp
+                    </a>
+                    <a href="tel:3180914236" class="inline-flex items-center bg-white text-blue-600 font-bold py-2 px-6 md:py-3 md:px-8 rounded-full hover:bg-gray-100 transition duration-300">
+                        <i class="fas fa-phone-alt mr-2"></i>
+                        Llamar
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" id="applianceModal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold" id="modalTitle">Electrodomésticos</h2>
+                <button class="close-modal text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="applianceList">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">WhirlpoolExpert</h3>
+                    <p class="text-sm md:text-base">Expertos en reparación y mantenimiento de electrodomésticos. Servicio rápido y confiable en toda la ciudad.</p>
+                </div>
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">Enlaces rápidos</h3>
+                    <ul>
+                        <li><a href="index.html" class="hover:text-blue-400 text-sm md:text-base">Inicio</a></li>
+                        <li><a href="servicios.html" class="hover:text-blue-400 text-sm md:text-base">Servicios</a></li>
+                        <li><a href="marcasAsociadas.html" class="hover:text-blue-400 text-sm md:text-base">Marcas</a></li>
+                        <li><a href="programa.html" class="hover:text-blue-400 text-sm md:text-base">Agenda tu Cita</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <h3 class="text-xl font-semibold mb-4">Síguenos</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/share/1AA835oZUK/" class="text-white hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/wirpoolexpert?igsh=MWl0dWZtOHF2cHJuYQ==" class="text-white hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-sm md:text-base">&copy; 2025 WhirlpoolExpert. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const brandAppliances = {
+            whirlpool: [
+                { name: 'Lavadoras', image: 'img/lavadoraWhirlpool.jpg' },
+                { name: 'Neveras', image: 'img/nevera whirlpool.png' },
+                { name: 'Refrijeradores', image: 'img/refrijeradorwhirlpool.png' },
+                { name: 'Lavavajillas', image: 'img/lavavajillaswhirlpool.jpg' },
+                { name: 'Hornos', image: 'img/hornowhirlpool.webp' },
+                { name: 'Estufas', image: 'img/estufaswhirlpool.jpg' }
+            ],
+            samsung: [
+                { name: 'Lavadoras', image: 'img/lavadorasamsung.jpg' },
+                { name: 'Neveras', image: 'img/neverasamsung.jpg' },
+                { name: 'Lavavajillas', image: 'img/lavavajillasamsung.avif' },
+                { name: 'Hornos', image: 'img/hornosamsung.avif' },
+                { name: 'Estufas', image: 'img/estufasamsung.avif' }
+            ],
+            lg: [
+                { name: 'Lavadoras', image: 'img/lavadoralg.jpg' },
+                { name: 'Neveras', image: 'img/neveralg.avif' },
+                { name: 'Lavavajillas', image: 'img/lavavajillaslg.avif' },
+                { name: 'Hornos', image: 'img/hornolg.avif' },
+                { name: 'Estufas', image: 'img/estufaslg.avif' }
+            ],
+            mabe: [
+                { name: 'Lavadoras', image: 'img/lavadoramabe.jpg' },
+                { name: 'Neveras', image: 'img/neveramabe.png' },
+                { name: 'Refrigeradores', image: 'img/refrijeradormabe.jpg' },
+                { name: 'Lavavajillas', image: 'img/lavavajillasmabe.jpg' },
+                { name: 'Hornos', image: 'img/hornomabe.jpg' },
+                { name: 'Estufas', image: 'img/estufasmabe.png' }
+            ],
+            electrolux: [
+                { name: 'Lavadoras', image: 'img/lavadoraelectrolux.jpg' },
+                { name: 'Neveras', image: 'img/neveraelectrolux.webp' },
+                { name: 'Refrigeradores', image: 'img/refrijeradorelectrolux.png' },
+                { name: 'Hornos', image: 'img/hornoelectrolux.webp' },
+                { name: 'Estufas', image: 'img/estufaelectrolux.webp' }
+            ],
+            general_electric: [
+                { name: 'Lavadoras', image: 'img/lavadorageneralelectric.webp' },
+                { name: 'Neveras', image: 'img/neverageneralelectric.webp' },
+                { name: 'Refrigeradores', image: 'img/refrijeradorgeneralelectric.jpg' },
+                { name: 'Hornos', image: 'img/hornogeneralelectric.jpg' },
+                { name: 'Estufas', image: 'img/estufageneralelectric.jpg' }
+            ],
+            centrales: [
+                { name: 'Lavadoras', image: 'img/lavadoracentrales.webp' },
+                { name: 'Neveras', image: 'img/neveracentrales.avif' },
+                { name: 'Estufas', image: 'img/estufacentrales.jpg' }
+            ],
+            challenger: [
+                { name: 'Lavadoras', image: 'img/lavadorachallenger.png' },
+                { name: 'Neveras', image: 'img/neverachallenger.png' },
+                { name: 'Refrigeradores', image: 'img/refrijeradorchallenger.webp' },
+                { name: 'Lavavajillas', image: 'img/lavavajillachallenger.webp' },
+                { name: 'Hornos', image: 'img/hornochallenger.webp' },
+                { name: 'Estufas', image: 'img/estufachallenger.webp' }
+            ],
+            haceb: [
+                { name: 'Lavadoras', image: 'img/lavadorahaceb.png' },
+                { name: 'Neveras', image: 'img/neverahaceb.webp' },
+                { name: 'Refrigeradores', image: 'img/refrijeradorhaceb.webp' },
+                { name: 'Lavavajillas', image: 'img/lavavajillahaceb.avif' },
+                { name: 'Hornos', image: 'img/hornohaceb.webp' },
+                { name: 'Estufas', image: 'img/estufahaceb.webp' }
+            ]
+        };
+
+        const modal = document.getElementById('applianceModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const applianceList = document.getElementById('applianceList');
+        const closeButton = modal.querySelector('.close-modal');
+        const brandCards = document.querySelectorAll('.brand-card');
+
+        function showModal(brand) {
+            const brandName = brand.charAt(0).toUpperCase() + brand.slice(1).replace('_', ' ');
+            modalTitle.textContent = `Electrodomésticos ${brandName}`;
+            applianceList.innerHTML = '';
+
+            brandAppliances[brand].forEach(appliance => {
+                const applianceItem = document.createElement('div');
+                applianceItem.className = 'appliance-item bg-white rounded-lg shadow-md overflow-hidden';
+                applianceItem.innerHTML = `
+                    <div class="appliance-image-container">
+                        <img src="${appliance.image}" 
+                             alt="${appliance.name}" 
+                             class="appliance-image"
+                             onerror="this.src='img/placeholder.jpg'">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">${appliance.name}</h3>
+                        <a href="programa.html" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Solicitar Servicio
+                        </a>
+                    </div>
+                `;
+                applianceList.appendChild(applianceItem);
+            });
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        brandCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const brand = card.dataset.brand;
+                showModal(brand);
+            });
+        });
+
+        closeButton.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-fade-in, .animate-slide-up');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        const applianceContainers = document.querySelectorAll('.appliance-image-container');
+        
+        applianceContainers.forEach(container => {
+            const image = container.querySelector('.appliance-image');
+            
+            container.addEventListener('mouseenter', function() {
+                image.style.transform = 'scale(1.2)';
+            });
+            
+            container.addEventListener('mouseleave', function() {
+                image.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

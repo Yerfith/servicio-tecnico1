@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - WhirlpoolExpert</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 1s ease-out forwards; }
+        
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: #e5e7eb;
+            transform: translateY(-50%);
+            z-index: -1;
+        }
+        
+        .process-step:last-child::before {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/whripool1-odFaz3ZVxyOTtCUCuRMBtAn88WgeJs.png" alt="WhirlpoolExpert Logo" class="h-12">
+                </a>
+                <div class="hidden md:flex space-x-4">
+                    <a href="index.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Inicio</a>
+                    <a href="quienes-somos.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Sobre Nosotros</a>
+                    <a href="servicios.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Servicios</a>
+                    <a href="marcasAsociadas.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Marcas</a>
+                    <a href="programa.html" class="text-gray-800 hover:text-blue-600 transition duration-300">Agenda tu Cita</a>
+                </div>
+                <button class="md:hidden" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <!-- Menú móvil -->
+            <div id="mobileMenu" class="md:hidden hidden mt-4">
+                <a href="index.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Inicio</a>
+                <a href="quienes-somos.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Sobre Nosotros</a>
+                <a href="servicios.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Servicios</a>
+                <a href="marcasAsociadas.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Marcas</a>
+                <a href="programa.html" class="block text-gray-800 hover:text-blue-600 transition duration-300 py-2">Agenda tu Cita</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section class="relative bg-blue-600 text-white py-20">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-slide-up">Servicios Profesionales de Reparación</h1>
+                    <p class="text-lg md:text-xl mb-8 animate-fade-in">Soluciones expertas para todos sus electrodomésticos</p>
+                    <a href="programa.html" class="inline-block bg-white text-blue-600 font-bold py-2 px-6 md:py-3 md:px-8 rounded-full hover:bg-gray-100 transition duration-300">
+                        Agendar Servicio
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Servicios Principales -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Nuestros Servicios Principales</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="service-card bg-gray-50 rounded-lg p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-washing-machine text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Reparación de Lavadoras</h3>
+                        <p class="text-gray-600">Solucionamos problemas de lavado, centrifugado, drenaje y más.</p>
+                        <ul class="mt-4 text-left text-sm text-gray-600">
+                            <li class="flex items-center mb-2">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Diagnóstico preciso
+                            </li>
+                            <li class="flex items-center mb-2">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Repuestos originales
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Garantía del servicio
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card bg-gray-50 rounded-lg p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-snowflake text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Mantenimiento de Refrigeradores</h3>
+                        <p class="text-gray-600">Optimizamos el rendimiento y eficiencia de su refrigerador.</p>
+                        <ul class="mt-4 text-left text-sm text-gray-600">
+                            <li class="flex items-center mb-2">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Limpieza de bobinas
+                            </li>
+                            <li class="flex items-center mb-2">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Ajuste de temperatura
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Control de fugas
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card bg-gray-50 rounded-lg p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-fire text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Reparación de Hornos</h3>
+                        <p class="text-gray-600">Restauramos la funcionalidad de sus hornos y estufas.</p>
+                        <ul class="mt-4 text-left text-sm text-gray-600">
+                            <li class="flex items-center mb-2">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Control de temperatura
+                            </li>
+                            <li class="flex items-center mb-2">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Calibración
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Revisión de seguridad
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card bg-gray-50 rounded-lg p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-sink text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Servicio de Lavavajillas</h3>
+                        <p class="text-gray-600">Reparamos y mantenemos su lavavajillas en óptimo estado.</p>
+                        <ul class="mt-4 text-left text-sm text-gray-600">
+                            <li class="flex items-center mb-2">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Limpieza profunda
+                            </li>
+                            <li class="flex items-center mb-2">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Ajuste de presión
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Revisión de filtros
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proceso de Servicio -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Nuestro Proceso</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="relative process-step text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-phone-alt text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">1. Contacto</h3>
+                        <p class="text-gray-600">Programe su servicio por teléfono o en línea</p>
+                    </div>
+                    
+                    <div class="relative process-step text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-search text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">2. Diagnóstico</h3>
+                        <p class="text-gray-600">Evaluación profesional del problema</p>
+                    </div>
+                    
+                    <div class="relative process-step text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-tools text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">3. Reparación</h3>
+                        <p class="text-gray-600">Solución eficiente del problema</p>
+                    </div>
+                    
+                    <div class="relative process-step text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check-circle text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">4. Garantía</h3>
+                        <p class="text-gray-600">Respaldo total de nuestro trabajo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Precios -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Tarifas de Servicio</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="service-card bg-gray-50 rounded-lg p-8 text-center">
+                        <h3 class="text-xl font-semibold mb-4">Diagnóstico Básico</h3>
+                        <div class="text-4xl font-bold text-blue-600 mb-4">$50.000</div>
+                        <ul class="text-left space-y-3 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Evaluación inicial
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Reporte de estado
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Cotización detallada
+                            </li>
+                        </ul>
+                        <a href="programa.html" class="inline-block bg-blue-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-blue-700 transition duration-300">
+                            Agendar
+                        </a>
+                    </div>
+                    
+                    <div class="service-card bg-blue-600 rounded-lg p-8 text-center text-white transform scale-105">
+                        <h3 class="text-xl font-semibold mb-4">Mantenimiento Preventivo</h3>
+                        <div class="text-4xl font-bold mb-4">Consultar</div>
+                        <ul class="text-left space-y-3 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check mr-2"></i>
+                                Limpieza profunda
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check mr-2"></i>
+                                Ajustes generales
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check mr-2"></i>
+                                Revisión de seguridad
+                            </li>
+                        </ul>
+                        <a href="programa.html" class="inline-block bg-white text-blue-600 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300">
+                            Agendar
+                        </a>
+                    </div>
+                    
+                    <div class="service-card bg-gray-50 rounded-lg p-8 text-center">
+                        <h3 class="text-xl font-semibold mb-4">Reparación Mayor</h3>
+                        <div class="text-4xl font-bold text-blue-600 mb-4">Consultar</div>
+                        <ul class="text-left space-y-3 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Diagnóstico completo
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Repuestos originales
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Garantía del servicio
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Soporte post-servicio
+                            </li>
+                        </ul>
+                        <a href="programa.html" class="inline-block bg-blue-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-blue-700 transition duration-300">
+                            Consultar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonios -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">"Excelente servicio. Repararon mi lavadora en menos de 24 horas. Muy profesionales y eficientes."</p>
+                        <p class="font-semibold">- María Rodríguez</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">"El técnico fue muy profesional y me explicó todo el proceso. Precio justo y excelente trabajo."</p>
+                        <p class="font-semibold">- Carlos Pérez</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">"Servicio rápido y confiable. Mi refrigerador funciona mejor que nunca. ¡Altamente recomendados!"</p>
+                        <p class="font-semibold">- Ana García</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-16 bg-blue-600">
+            <div class="container mx-auto px-4 text-center text-white">
+                <h2 class="text-3xl font-bold mb-4">¿Necesita un servicio?</h2>
+                <p class="text-lg md:text-xl mb-8">Contáctenos hoy mismo para una atención rápida y profesional</p>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <a href="https://wa.me/3180914236" class="inline-flex items-center bg-green-500 text-white font-bold py-2 px-6 md:py-3 md:px-8 rounded-full hover:bg-green-600 transition duration-300">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        WhatsApp
+                    </a>
+                    <a href="tel:3180914236" class="inline-flex items-center bg-white text-blue-600 font-bold py-2 px-6 md:py-3 md:px-8 rounded-full hover:bg-gray-100 transition duration-300">
+                        <i class="fas fa-phone-alt mr-2"></i>
+                        Llamar
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">WhirlpoolExpert</h3>
+                    <p class="text-sm md:text-base">Expertos en reparación y mantenimiento de electrodomésticos. Servicio rápido y confiable en toda la ciudad.</p>
+                </div>
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">Enlaces rápidos</h3>
+                    <ul>
+                        <li><a href="index.html" class="hover:text-blue-400 text-sm md:text-base">Inicio</a></li>
+                        <li><a href="servicios.html" class="hover:text-blue-400 text-sm md:text-base">Servicios</a></li>
+                        <li><a href="marcasAsociadas.html" class="hover:text-blue-400 text-sm md:text-base">Marcas</a></li>
+                        <li><a href="programa.html" class="hover:text-blue-400 text-sm md:text-base">Agenda tu Cita</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <h3 class="text-xl font-semibold mb-4">Síguenos</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/share/1AA835oZUK/" class="text-white hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/wirpoolexpert?igsh=MWl0dWZtOHF2cHJuYQ==" class="text-white hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-sm md:text-base">&copy; 2025 WhirlpoolExpert. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Función para mostrar/ocultar el menú móvil
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Animación al hacer scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-fade-in, .animate-slide-up');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
